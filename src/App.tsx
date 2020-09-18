@@ -1,7 +1,16 @@
 import React from "react";
+import "./App.scss";
+import Add from "./components/Add/Add";
 
-function App() {
-  return <div className="App">Hello from the app</div>;
-}
+const App: React.FC = () => {
+  return (
+    <div className="container" data-testid="todo-notebook">
+      <Add value="" changeHandler={() => console.log("hello")} />
+      <p>Input component</p>
+      <p>Todos component</p>
+      <p>Buttons / Filter component</p>
+    </div>
+  );
+};
 
 export default App;
