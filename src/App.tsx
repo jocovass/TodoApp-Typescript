@@ -8,7 +8,7 @@ import "./App.scss";
 const reducer = (state: State, action: Actions) => {
   switch (action.type) {
     case "add":
-      return [...state, action.payload];
+      return [action.payload, ...state];
     case "remove":
       state = state.filter((el) => el.id !== action.payload.id);
       return state;

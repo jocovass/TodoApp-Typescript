@@ -24,8 +24,12 @@ const Todos: React.FC<Props> = ({ todos, updateState }) => {
                 timeout={300}
                 classNames="slideIn"
               >
-                <li className={`todos__item `}>
+                <li className={`todos__item `} data-testid="todo-item">
                   <div
+                    data-testid="todo-check-input"
+                    role="button"
+                    aria-label="Check input"
+                    tabIndex={0}
                     onClick={handelCheckToggle.bind(null, todo.id)}
                     className={`todos__checkmark ${todo.done ? "checked" : ""}`}
                   >
