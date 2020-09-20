@@ -31,7 +31,6 @@ const Add: React.FC<Props> = ({ updateState }) => {
       setValue("");
     }
   };
-  console.log("rerender 💥");
   return (
     <div className="add">
       <form className="add__form" onSubmit={submitHandler}>

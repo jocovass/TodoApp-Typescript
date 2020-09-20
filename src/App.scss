@@ -1,3 +1,4 @@
+// GENERAL STYLING
 $dark: #1a1a1d;
 $light: #fff;
 $accent: #3370da;
@@ -6,6 +7,8 @@ $error: #b30404;
 *::before,
 *::after {
   box-sizing: inherit;
+  padding: 0;
+  margin: 0;
 }
 body {
   font-family: "Roboto";
@@ -19,14 +22,17 @@ body {
   justify-content: center;
   align-items: center;
 }
+// APP CONTAINER
 .container {
   background-color: $light;
+  overflow: hidden;
   padding: 1rem;
   width: 25em;
   height: 33rem;
   border-radius: 10px;
   box-shadow: 20px 20px 15px rgba(0, 0, 0, 0.3);
 }
+// ADD COMPONENT
 .add {
   &__form {
     height: 2.1rem;
@@ -115,4 +121,142 @@ body {
     border-color: $error transparent transparent $error;
     box-shadow: -2px -2px rgba($error, 0.3);
   }
+}
+// TODO LIST
+.todos {
+  //   background: red;
+  margin-top: 2.2rem;
+  &__list {
+    list-style-type: none;
+  }
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    overflow: hidden;
+    border: 1px solid #dfdfdf;
+    border-radius: 3px;
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+  &__text {
+    &.checked {
+      text-decoration: line-through;
+      font-style: italic;
+    }
+  }
+  &__checkmark {
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    background: $light;
+    margin-right: 1rem;
+    cursor: pointer;
+    border: 1px solid grey;
+    &.checked {
+      border-color: transparent;
+    }
+    &--stem {
+      position: absolute;
+      width: 3px;
+      height: 0rem;
+      background-color: $accent;
+      left: 50%;
+      bottom: 0px;
+      transform: rotate(50deg) scale(1);
+      &.checked {
+        height: 1rem;
+        animation: fadeIn 0.3s ease-in-out;
+      }
+    }
+    &--kick {
+      position: absolute;
+      width: 3px;
+      height: 0px;
+      background-color: $accent;
+      left: 1px;
+      top: 5px;
+      transform: rotate(-35deg);
+      transition: width 0.3s ease-in-out;
+      &.checked {
+        height: 7px;
+        animation: fadeIn2 0.3s ease-in-out;
+      }
+    }
+    &:hover {
+      box-shadow: 0px 0px 0px 1.5px rgba($accent, 0.3);
+    }
+  }
+  &__delete {
+    margin-left: auto;
+    cursor: pointer;
+    text-transform: uppercase;
+    background-color: transparent;
+    padding: 3px 10px;
+    border: 1px solid $dark;
+    border-radius: 50px;
+    transform: translateX(100px);
+    opacity: 0.1;
+    transition: transform 0.2s ease-in-out, opacity 0.5s ease-in-out;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-color: $accent;
+      box-shadow: 0px 0px 0px 2px rgba($accent, 0.3);
+    }
+  }
+  &__item:hover &__delete {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: rotate(50deg) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: rotate(50deg) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(50deg) scale(1.1);
+  }
+}
+@keyframes fadeIn2 {
+  0% {
+    opacity: 0;
+    transform: rotate(-35deg) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: rotate(-35deg) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-35deg) scale(1.1);
+  }
+}
+// FOR REACT-TRANSITION-GROUP
+.slideIn-enter {
+  opacity: 0.01;
+  transform: translateX(-40px);
+}
+.slideIn-enter-active {
+  opacity: 1;
+  transform: translateX(0px);
+  transition: all 0.3s ease-in-out;
+}
+.slideIn-exit {
+  opacity: 1;
+  transform: translatex(0px);
+}
+.slideIn-exit-active {
+  opacity: 0.01;
+  transform: translateX(40px);
+  transition: all 0.3s ease-in-out;
 }
