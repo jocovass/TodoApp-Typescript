@@ -1,7 +1,10 @@
 import React, { useReducer } from "react";
 import Add from "./components/Add/Add";
 import Todos from "./components/Todos/Todos";
+import DoneTodos from "./components/Todos/DoneTodos";
+import NotReadyTodos from "./components/Todos/NotReadyTodos";
 import { Actions, State } from "./react-app-env";
+import Filter from "./components/Filtier/Filter";
 
 import "./App.scss";
 
@@ -10,6 +13,7 @@ const reducer = (state: State, action: Actions) => {
     case "add":
       return [action.payload, ...state];
     case "remove":
+      console.log(action);
       state = state.filter((el) => el.id !== action.payload.id);
       return state;
     case "done":
@@ -35,8 +39,11 @@ const App: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, IS);
   return (
     <div className="container" data-testid="todo-notebook">
-      <Add updateState={dispatch} />
-      <Todos todos={state} updateState={dispatch} />
+      <div className="main">
+        <Add updateState={dispatch} />
+        <Todos todos={state} updateState={dispatch} />
+      </div>
+      <Filter />
     </div>
   );
 };
