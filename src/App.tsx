@@ -1,16 +1,18 @@
-import React, { useReducer } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import React, { useReducer, useEffect } from "react";
+import { Route, Switch } from "react-router-dom";
 import Add from "./components/Add/Add";
 import Todos from "./components/Todos/Todos";
 import { Actions, State } from "./react-app-env";
 import Filter from "./components/Filtier/Filter";
-
-import "./App.scss";
 import NotReadyTodos from "./components/Todos/NotReadyTodos";
 import DoneTodos from "./components/Todos/DoneTodos";
 
+import "./App.scss";
+
 const reducer = (state: State, action: Actions) => {
   switch (action.type) {
+    case "setInitialState":
+      return action.payload.todos;
     case "add":
       return [action.payload, ...state];
     case "remove":
@@ -29,41 +31,40 @@ const reducer = (state: State, action: Actions) => {
       throw Error("Unhandled 💥");
   }
 };
-const IS = [
-  { text: "Go for shopping", id: 0, done: true },
-  { text: "Finish study", id: 1, done: false },
-  { text: "Do the laundry", id: 2, done: false },
-  { text: "Make dinner", id: 3, done: false },
-];
 
 const App: React.FC = () => {
-  const [state, dispatch] = useReducer(reducer, IS);
+  const [state, dispatch] = useReducer(
+    reducer,
+    JSON.parse(localStorage.getItem("todos") as any) || []
+  );
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(state));
+  }, [state]);
   return (
-    <BrowserRouter>
-      <div className="container" data-testid="todo-notebook">
-        <div className="main">
-          <Add updateState={dispatch} />
+    <div className="container" data-testid="todo-notebook">
+      <div className="main">
+        <Add updateState={dispatch} />
+        <Switch>
           <Route
-            path="/all"
+            path="/"
             exact
             render={() => <Todos todos={state} updateState={dispatch} />}
           />
           <Route
             path="/not-ready"
-            exact
             render={() => (
               <NotReadyTodos todos={state} updateState={dispatch} />
             )}
           />
           <Route
-            path="/done"
-            exact
+            path="/all-done"
             render={() => <DoneTodos todos={state} updateState={dispatch} />}
           />
-        </div>
-        <Filter />
+        </Switch>
       </div>
-    </BrowserRouter>
+
+      <Filter />
+    </div>
   );
 };
 

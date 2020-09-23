@@ -10,7 +10,7 @@ interface Props {
 
 const Todos: React.FC<Props> = ({ todos, updateState }) => {
   return (
-    <div className="todos">
+    <div className="todos" data-testid="all-todo">
       <ul className="todos__list">
         <TransitionGroup component={null}>
           {todos.map((todo) => {

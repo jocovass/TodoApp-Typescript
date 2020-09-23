@@ -1,11 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Filter: React.FC = () => {
   return (
     <div className="filter">
-      <button className="filter__btn">All Todo</button>
-      <button className="filter__btn">Ready</button>
-      <button className="filter__btn">Done</button>
+      <Link to="/" className="filter__btn">
+        All Todo
+      </Link>
+      <Link to="/not-ready" className="filter__btn">
+        Not Ready
+      </Link>
+      <Link to="/all-done" className="filter__btn">
+        Done
+      </Link>
     </div>
   );
 };

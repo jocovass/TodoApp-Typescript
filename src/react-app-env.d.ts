@@ -8,6 +8,10 @@ export interface Todo {
 
 export type Actions =
   | {
+      type: "setInitialState";
+      payload: { todos: Todop[] };
+    }
+  | {
       type: "add";
       payload: {
         text: string;

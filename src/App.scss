@@ -14,6 +14,7 @@ body {
   font-family: "Roboto";
   background-color: $dark;
   box-sizing: border-box;
+  color: $dark;
   padding: 0;
   margin: 0;
   height: 100vh;
@@ -270,6 +271,7 @@ body {
   transform: translateX(40px);
   transition: all 0.3s ease-in-out;
 }
+//FILTER COMPONENT
 .filter {
   position: relative;
   margin-top: auto;
@@ -294,7 +296,10 @@ body {
     bottom: 2px;
   }
   &__btn {
-    cursor: pointer;
+    color: $dark;
+    text-decoration: none;
+    font-size: 0.8rem;
+    display: inline-block;
     background-color: transparent;
     padding: 3px 10px;
     border: 1px solid $dark;
